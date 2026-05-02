@@ -11,9 +11,12 @@ import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import split, col, explode
 
-def run_word_count(spark: SparkSession, input_path: str) -> int:
+from src.readers import read_lines
+
+
+def run_word_count(spark: SparkSession, input_path) -> int:
     """Run word count and return the total number of words."""
-    df = spark.read.text(input_path)
+    df = read_lines(spark, input_path)
 
     words_df = df.select(
         explode(split(col("value"), " ")).alias("words")

@@ -7,7 +7,7 @@ Provides timing helpers and CSV result writing for the benchmark harness.
 import csv
 import os
 import time
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 
 def time_function(func: Callable, *args, **kwargs) -> Tuple[Any, float]:
@@ -23,19 +23,44 @@ def time_function(func: Callable, *args, **kwargs) -> Tuple[Any, float]:
     return result, elapsed
 
 
-def save_results(records: List[Dict], filepath: str) -> None:
+def save_results(
+    records: List[Dict[str, Any]],
+    filepath: str,
+    fieldnames: Optional[List[str]] = None,
+) -> None:
     """
     Save benchmark records to a CSV file.
 
-    Each record is a dict with keys like:
-        analysis, api_type, elapsed_seconds, corpus_path, result_summary
+    Default columns match the original harness; extra keys (e.g. dataset_size,
+    shuffle_partitions) are supported when fieldnames is passed or inferred.
     """
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    if not records:
+        raise ValueError("save_results: records list is empty")
 
-    fieldnames = ["analysis", "api_type", "elapsed_seconds", "corpus_path", "result_summary"]
+    os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
+
+    if fieldnames is None:
+        keys: List[str] = []
+        for row in records:
+            for k in row:
+                if k not in keys:
+                    keys.append(k)
+        preferred = [
+            "dataset_size",
+            "shuffle_partitions",
+            "analysis",
+            "api_type",
+            "elapsed_seconds",
+            "corpus_path",
+            "result_summary",
+        ]
+        fieldnames = [c for c in preferred if any(c in r for r in records)]
+        for k in keys:
+            if k not in fieldnames:
+                fieldnames.append(k)
 
     with open(filepath, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(records)
 

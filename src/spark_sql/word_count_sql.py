@@ -9,10 +9,12 @@ import sys
 import os
 from pyspark.sql import SparkSession
 
+from src.readers import read_lines
 
-def run_word_count_sql(spark: SparkSession, input_path: str) -> int:
+
+def run_word_count_sql(spark: SparkSession, input_path) -> int:
     """Run word count via Spark SQL and return the total number of words."""
-    df = spark.read.text(input_path)
+    df = read_lines(spark, input_path)
     df.createOrReplaceTempView("corpus")
 
     result = spark.sql("""

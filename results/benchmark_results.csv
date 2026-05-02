@@ -1,7 +1,7 @@
 analysis,api_type,elapsed_seconds,corpus_path,result_summary
-WordCount,DataFrame,2.4508,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Total words: 2,047,705"
-WordCount,SparkSQL,0.2737,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Total words: 2,047,705"
-WordFrequency,DataFrame,0.046,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,Top word: the (100764)
-WordFrequency,SparkSQL,0.0356,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,Top word: the (100764)
-WordPairs,DataFrame,0.0885,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Top pair: (the, the) (127540)"
-WordPairs,SparkSQL,0.0878,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Top pair: (the, the) (127540)"
+WordCount,DataFrame,2.5845,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Total words: 2,047,705"
+WordCount,SparkSQL,0.6292,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Total words: 2,047,705"
+WordFrequency,DataFrame,0.0635,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,Top word: the (100764)
+WordFrequency,SparkSQL,0.0514,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,Top word: the (100764)
+WordPairs,DataFrame,0.1569,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Top pair: (the, the) (127540)"
+WordPairs,SparkSQL,0.1209,/Users/aayush/Desktop/School/Spring 2026/COMPSCI_532/Final-project/data/corpus/*.txt,"Top pair: (the, the) (127540)"

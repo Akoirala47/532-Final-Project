@@ -11,10 +11,12 @@ import os
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import split, col, explode, desc
 
+from src.readers import read_lines
 
-def run_word_frequency(spark: SparkSession, input_path: str) -> DataFrame:
+
+def run_word_frequency(spark: SparkSession, input_path) -> DataFrame:
     """Run word frequency and return the top-20 DataFrame."""
-    df = spark.read.text(input_path)
+    df = read_lines(spark, input_path)
 
     words_df = df.select(
         explode(split(col("value"), " ")).alias("words")

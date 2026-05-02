@@ -10,10 +10,12 @@ import os
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import monotonically_increasing_id
 
+from src.readers import read_lines
 
-def run_word_pairs_sql(spark: SparkSession, input_path: str) -> DataFrame:
+
+def run_word_pairs_sql(spark: SparkSession, input_path) -> DataFrame:
     """Run word pairs via Spark SQL and return the top-20 DataFrame."""
-    df = spark.read.text(input_path).withColumn(
+    df = read_lines(spark, input_path).withColumn(
         "line_id", monotonically_increasing_id()
     )
     df.createOrReplaceTempView("corpus_lines")

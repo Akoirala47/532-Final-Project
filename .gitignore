@@ -1,1 +1,3 @@
 data/corpus/
+.venv/
+.pytest_cache/

@@ -9,10 +9,12 @@ import sys
 import os
 from pyspark.sql import SparkSession, DataFrame
 
+from src.readers import read_lines
 
-def run_word_frequency_sql(spark: SparkSession, input_path: str) -> DataFrame:
+
+def run_word_frequency_sql(spark: SparkSession, input_path) -> DataFrame:
     """Run word frequency via Spark SQL and return the top-20 DataFrame."""
-    df = spark.read.text(input_path)
+    df = read_lines(spark, input_path)
     df.createOrReplaceTempView("corpus")
 
     freq_df = spark.sql("""
